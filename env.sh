@@ -21,6 +21,7 @@ function mkcd() { mkdir -p "$@" && cd "$_"; }
 # Aliases
 alias cppcompile='c++ -std=c++11 -stdlib=libc++'
 alias ll="ls -la"
+alias ws="cd ~/ws
 
 # Use sublimetext for editing config files
 alias zshconfig="subl ~/.zshrc"
