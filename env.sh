@@ -18,5 +18,5 @@ alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -b"
 alias pm="git push origin master"
 
 # Use sublimetext for editing config files
-alias envconf="subl ~/ws/conf/env.sh"
-alias sconf="source ~/ws/conf/env.sh"
+alias ez="vi ~/ws/conf/env.sh"
+alias sz="source ~/ws/conf/env.sh"
