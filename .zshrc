@@ -7,7 +7,7 @@ export PATH=/opt/idea/bin:/opt/Postman:/opt/cfssl:/opt/node/bin:/usr/local/go/bi
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="avit"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -52,7 +52,7 @@ ZSH_THEME="agnoster"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=6'
-plugins=(git kubectl zsh-autosuggestions)
+plugins=(git kubectl zsh-autosuggestions )
 
 source $ZSH/oh-my-zsh.sh
 source ~/ws/kubeaware/kubeaware.sh
