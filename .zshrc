@@ -19,15 +19,26 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=6'
 plugins=(git kubectl zsh-autosuggestions )
 
 source $ZSH/oh-my-zsh.sh
-source ~/ws/kubeaware/kubeaware.sh
 
-PROMPT='$(kubeaware_prompt)'$PROMPT
 EDITOR=/usr/bin/vim
+VISUAL=/usr/bin/vim
 
 # GO variables
 GOROOT=/usr/local/Cellar/go/1.10/bin
 GOPATH=~/ws/go
 DEPPROJECTROOT=~/ws/go
+
+#VI mode
+bindkey -v
+
+autoload -z edit-command-line
+zle -N edit-command-line
+
+bindkey '^w' backward-kill-word
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey -M vicmd 'v' edit-command-line
+
 
 cci_dev-gke() { curl --header "Content-Type: application/json" -d '{ "build_parameters": { "CLUSTER_NAME": "dev-gke", "GCP_PROJECT_NAME": "nais-dev-gke", "CLUSTER_CONTEXT_NAME": "gke_nais-dev-gke_europe-north1-a_dev-gke" }}' https://circleci.com/api/v1.1/project/github/nais/nais-gke?circle-token=2cd70276b1195cd192659867c604fd06ccdf4a9f }
 cci_prod-gke() { curl --header "Content-Type: application/json" -d '{ "build_parameters": { "CLUSTER_NAME": "prod-gke",     "GCP_PROJECT_NAME": "nais-prod-gke", "CLUSTER_CONTEXT_NAME": "gke_nais-prod-gke_europe-north1-a_prod-gke" }}'      https://circleci.com/api/v1.1/project/github/nais/nais-gke?circle-token=2cd70276b1195cd192659867c604fd06ccdf4a9f }
@@ -35,10 +46,8 @@ WORKSPACE=~/ws
 rdp() { xfreerdp -u RA_S138206 -d ADEO -g 1600x1000 --plugin cliprdr --plugin rdpdr --data disk:s138206:/home/S138206/lib/rdp -- "$@" ; }
 
 li() { cat ~/ws/nais-inventory/"$@" }
-alias ku="kubeunaware"
-alias ka="kubeaware"
 alias uk="cd ~/ws/kubeconfigs; git pull origin master; cd -"
-alias k="kubectl"
+alias k="kubectl $@"
 alias kc="~/ws/kubectx/kubectx"
 alias kns="~/ws/kubectx/kubens"
 alias ks="kubectl -n kube-system"
@@ -53,4 +62,8 @@ alias pm="/opt/Postman/Postman &"
 alias sql="/opt/sqldeveloper/sqldeveloper.sh"
 alias dev-dev="gcloud config set account frodesun@gmail.com && kc gke_nais-dev_europe-west1-b_nais-dev"
 alias nais-dev="gcloud config set account frode.sundby@nav.no && kc gke_nais-dev-206213_europe-west1_nais-dev"
+alias gilo='git log --all --decorate --oneline --graph'
+alias gcfs='gcloud config set account frode.sundby@nav.no'
+alias gctf='gcloud config set account terraform-ci-user@terraform-234613.iam.gserviceaccount.com'
+alias gcgv='gcloud config get-value account'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

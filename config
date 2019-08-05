@@ -1,0 +1,11 @@
+Match exec "/usr/local/bin/sft resolve -q  %h"
+    ProxyCommand "/usr/local/bin/sft" proxycommand  %h
+    UserKnownHostsFile "/Users/frodesundby/Library/Application Support/ScaleFT/proxycommand_known_hosts"
+Host utviklerimage
+  Hostname 10.33.46.145
+  User S138206
+  ForwardAgent yes
+  IdentitiesOnly yes
+  ProxyCommand "/usr/local/bin/sft" proxycommand  --via a01apvl00214.adeo.no --via e34apvl00602.devillo.no %r@%h
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
