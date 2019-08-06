@@ -1,7 +1,7 @@
 export PATH=/usr/local/Cellar:/opt/idea/bin:/opt/Postman:/opt/cfssl:/opt/node/bin:/usr/local/opt/go/libexec/bin:/opt/helm/linux-amd64:$PATH
 # Path to your oh-my-zsh installation.
-  export ZSH=~/.oh-my-zsh
-
+export ZSH=~/.oh-my-zsh
+export LANG=en_US.UTF-8
 GO111MODULE=on
 
 # Set name of the theme to load. Optionally, if you set this to "random"
@@ -9,14 +9,13 @@ GO111MODULE=on
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="avit"
 
-export KUBECONFIG=~/.kube/config
+export KUBECONFIG=~/.kube/google:~/.kube/navconfig:~/.kube/config
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 export TERM=xterm-256color
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=6'
-plugins=(git kubectl zsh-autosuggestions )
+plugins=(git kubectl )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -39,17 +38,14 @@ bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
 bindkey -M vicmd 'v' edit-command-line
 
-
-cci_dev-gke() { curl --header "Content-Type: application/json" -d '{ "build_parameters": { "CLUSTER_NAME": "dev-gke", "GCP_PROJECT_NAME": "nais-dev-gke", "CLUSTER_CONTEXT_NAME": "gke_nais-dev-gke_europe-north1-a_dev-gke" }}' https://circleci.com/api/v1.1/project/github/nais/nais-gke?circle-token=2cd70276b1195cd192659867c604fd06ccdf4a9f }
-cci_prod-gke() { curl --header "Content-Type: application/json" -d '{ "build_parameters": { "CLUSTER_NAME": "prod-gke",     "GCP_PROJECT_NAME": "nais-prod-gke", "CLUSTER_CONTEXT_NAME": "gke_nais-prod-gke_europe-north1-a_prod-gke" }}'      https://circleci.com/api/v1.1/project/github/nais/nais-gke?circle-token=2cd70276b1195cd192659867c604fd06ccdf4a9f }
 WORKSPACE=~/ws
 rdp() { xfreerdp -u RA_S138206 -d ADEO -g 1600x1000 --plugin cliprdr --plugin rdpdr --data disk:s138206:/home/S138206/lib/rdp -- "$@" ; }
 
 li() { cat ~/ws/nais-inventory/"$@" }
 alias uk="cd ~/ws/kubeconfigs; git pull origin master; cd -"
 alias k="kubectl $@"
-alias kc="~/ws/kubectx/kubectx"
-alias kns="~/ws/kubectx/kubens"
+alias kc="kubectx"
+alias kns="kubens"
 alias ks="kubectl -n kube-system"
 alias ws="cd ~/ws"
 alias mm="rdp a01t9vw040.adeo.no"
@@ -66,4 +62,11 @@ alias gilo='git log --all --decorate --oneline --graph'
 alias gcfs='gcloud config set account frode.sundby@nav.no'
 alias gctf='gcloud config set account terraform-ci-user@terraform-234613.iam.gserviceaccount.com'
 alias gcgv='gcloud config get-value account'
+alias tmux='tmux -u'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/frodesundby/opt/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/frodesundby/opt/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/frodesundby/opt/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/frodesundby/opt/google-cloud-sdk/completion.zsh.inc'; fi
