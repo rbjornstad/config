@@ -7,6 +7,7 @@ set nocompatible
 " {{{ Settings
 set textwidth=1400
 set wrap
+set mmp=50000
 
 " This shows what you are typing as a command.
 set showcmd

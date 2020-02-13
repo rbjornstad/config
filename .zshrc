@@ -1,8 +1,9 @@
-export PATH=/usr/local/Cellar:/opt/idea/bin:/opt/Postman:/opt/cfssl:/opt/node/bin:/usr/local/opt/go/libexec/bin:/opt/helm/linux-amd64:$PATH
+export PATH=/usr/local/Cellar:/usr/local/go/bin:~/go/bin:/opt/node/bin::~/opt/bin:$PATH
+KUBENCS_BINARY=/usr/local/bin/kubens
+
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 export LANG=en_US.UTF-8
-GO111MODULE=on
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -19,15 +20,15 @@ plugins=(git kubectl )
 
 source $ZSH/oh-my-zsh.sh
 
-EDITOR=/usr/bin/vim
-VISUAL=/usr/bin/vim
-
 # GO variables
 GOROOT=/usr/local/Cellar/go/1.10/bin
-GOPATH=~/ws/go
+GOPATH=~/go
+GO111MODULE=on
 DEPPROJECTROOT=~/ws/go
 
 #VI mode
+EDITOR=/usr/bin/vim
+VISUAL=/usr/bin/vim
 bindkey -v
 
 autoload -z edit-command-line
@@ -40,12 +41,19 @@ bindkey -M vicmd 'v' edit-command-line
 
 WORKSPACE=~/ws
 rdp() { xfreerdp -u RA_S138206 -d ADEO -g 1600x1000 --plugin cliprdr --plugin rdpdr --data disk:s138206:/home/S138206/lib/rdp -- "$@" ; }
+kubens_fzf() {
+    ${KUBENS_BINARY} $(${KUBENS_BINARY} | fzf -1 --ansi -q ${1:-""})
+    tmux refresh-client -S
+}
 
 li() { cat ~/ws/nais-inventory/"$@" }
+alias unifi="ssh svadapi.ddns.net -p 4242 -L 8443:unifi:8443"
 alias uk="cd ~/ws/kubeconfigs; git pull origin master; cd -"
+alias temp="cd ~/ws/temp"
 alias k="kubectl $@"
 alias kc="kubectx"
-alias kns="kubens"
+alias kns=kubens
+#alias kns="kubens_fzf $@"
 alias ks="kubectl -n kube-system"
 alias ws="cd ~/ws"
 alias mm="rdp a01t9vw040.adeo.no"
@@ -63,6 +71,8 @@ alias gcfs='gcloud config set account frode.sundby@nav.no'
 alias gctf='gcloud config set account terraform-ci-user@terraform-234613.iam.gserviceaccount.com'
 alias gcgv='gcloud config get-value account'
 alias tmux='tmux -u'
+alias rg='rg --hidden'
+alias rgf='rg  --files | rg'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # The next line updates PATH for the Google Cloud SDK.
