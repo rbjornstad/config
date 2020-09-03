@@ -1,4 +1,5 @@
-export PATH=/usr/local/Cellar:/usr/local/go/bin:~/go/bin:/opt/node/bin::~/opt/bin:$PATH
+export PATH=/usr/local/opt/openjdk/bin:/usr/local/Cellar:/usr/local/go/bin:~/go/bin:/opt/node/bin::~/opt/bin:~/opt/kubebuilder_2.3.1_darwin_amd64/bin:$HOME/.krew/bin:$PATH
+export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 KUBENCS_BINARY=/usr/local/bin/kubens
 
 # Path to your oh-my-zsh installation.
@@ -10,7 +11,7 @@ export LANG=en_US.UTF-8
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="avit"
 
-export KUBECONFIG=~/.kube/google:~/.kube/navconfig:~/.kube/config
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -61,9 +62,6 @@ alias sz="source ~/.zshrc"
 alias ez="vi ~/.zshrc"
 alias aura="ssh RA_S138206@a01apvl099.adeo.no"
 alias nav="/opt/Citrix/ICAClient/wfica -icaroot /opt/Citrix/ICAClient /mnt/w/ica-filer/NAV\ Skrivebord\ Adeo.ica"
-alias hipchat="HTTPS_PROXY= HTTP_PROXY= http_proxy= https_proxy= hipchat4"
-alias pm="/opt/Postman/Postman &"
-alias sql="/opt/sqldeveloper/sqldeveloper.sh"
 alias dev-dev="gcloud config set account frodesun@gmail.com && kc gke_nais-dev_europe-west1-b_nais-dev"
 alias nais-dev="gcloud config set account frode.sundby@nav.no && kc gke_nais-dev-206213_europe-west1_nais-dev"
 alias gilo='git log --all --decorate --oneline --graph'
@@ -73,10 +71,11 @@ alias gcgv='gcloud config get-value account'
 alias tmux='tmux -u'
 alias rg='rg --hidden'
 alias rgf='rg  --files | rg'
+alias idea='open -a "IntelliJ IDEA"'
+alias myip='curl https://icanhazip.com/s 2>/dev/null'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/frodesundby/opt/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/frodesundby/opt/google-cloud-sdk/path.zsh.inc'; fi
-
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/frodesundby/opt/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/frodesundby/opt/google-cloud-sdk/completion.zsh.inc'; fi

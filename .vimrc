@@ -43,8 +43,14 @@ set ignorecase
 " but only if it makes sense?
 set smartcase
 
-" jj = esc in insert mode
-inoremap jj <Esc> 
+" Define leader
+let mapleader=","
+
+" Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
 
 " Incremental search
 set incsearch
