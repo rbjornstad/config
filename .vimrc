@@ -1,7 +1,4 @@
 colorscheme delek
-set backupdir=~/.swap//
-set directory=~/.swap//
-set undodir=~/.swap//
 "
 set nocompatible
 " {{{ Settings

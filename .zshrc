@@ -2,6 +2,8 @@ export PATH=/usr/local/opt/openjdk/bin:/usr/local/Cellar:/usr/local/go/bin:~/go/
 export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 KUBENCS_BINARY=/usr/local/bin/kubens
 
+export VAULT_ADDR=https://vault.adeo.no
+
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 export LANG=en_US.UTF-8
@@ -71,11 +73,28 @@ alias gcgv='gcloud config get-value account'
 alias tmux='tmux -u'
 alias rg='rg --hidden'
 alias rgf='rg  --files | rg'
-alias idea='open -a "IntelliJ IDEA"'
+alias idea='open -na "IntelliJ IDEA" --args .'
 alias myip='curl https://icanhazip.com/s 2>/dev/null'
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+alias wl='watch kubectl logs $1 $2'
+alias github='open_github_for_current_folder'
+alias gcp='gcloud_set_project_fzf'
+alias glo='gcloud auth login --update-adc'
 
+open_github_for_current_folder () {
+    open $(git remote get-url --all origin)
+}
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/frodesundby/opt/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/frodesundby/opt/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/frodesundby/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/frodesundby/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/frodesundby/opt/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/frodesundby/opt/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/frodesundby/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/frodesundby/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/vault vault
+
+gcloud_set_project_fzf () {
+    gcloud config set project $(gcloud projects list --format="get(projectId)" | fzf -1 --ansi -q ${1:-""}); 
+    tmux refresh-client -S
+}
