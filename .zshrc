@@ -1,4 +1,4 @@
-export PATH=/usr/local/opt/openjdk/bin:/usr/local/Cellar:/usr/local/go/bin:~/go/bin:/opt/node/bin::~/opt/bin:~/opt/kubebuilder_2.3.1_darwin_amd64/bin:$HOME/.krew/bin:$PATH
+export PATH=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/bin:/usr/local/opt/openjdk/bin:/usr/local/Cellar:/usr/local/go/bin:~/go/bin:/opt/node/bin::~/opt/bin:~/opt/kubebuilder_2.3.1_darwin_amd64/bin:$HOME/.krew/bin:$PATH
 export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 KUBENCS_BINARY=/usr/local/bin/kubens
 
