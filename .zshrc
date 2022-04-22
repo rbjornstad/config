@@ -14,7 +14,6 @@ $path
 
 export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 export VAULT_ADDR=https://vault.adeo.no
-export GOPATH=/Users/frodesundby/go
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
@@ -62,10 +61,7 @@ alias nav="/opt/Citrix/ICAClient/wfica -icaroot /opt/Citrix/ICAClient /mnt/w/ica
 alias dev-dev="gcloud config set account frodesun@gmail.com && kc gke_nais-dev_europe-west1-b_nais-dev"
 alias nais-dev="gcloud config set account frode.sundby@nav.no && kc gke_nais-dev-206213_europe-west1_nais-dev"
 alias gilo='git log --all --decorate --oneline --graph'
-alias gcfs='gcloud config set account frode.sundby@nav.no'
-alias gcpadmin='gcloud config set account booby.brown@nav.no'
-alias gctf='gcloud config set account terraform-ci-user@terraform-234613.iam.gserviceaccount.com'
-alias gcgv='gcloud config get-value account'
+alias gcsu='gcloud config set account $(gcloud auth list --format="value(account)" | fzf)'
 alias tmux='tmux -u'
 alias rg='rg --hidden'
 alias rgf='rg  --files | rg'
@@ -136,3 +132,4 @@ complete -o nospace -C /usr/local/bin/vault vault
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+alias stripx='sudo xattr -d -r com.apple.quarantine'

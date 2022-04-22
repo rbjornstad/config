@@ -6,6 +6,15 @@ set textwidth=1400
 set wrap
 set mmp=50000
 
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'maxjacobson/vim-fzf-coauthorship'
+" Initialize plugin system
+call plug#end()
+
+nmap <silent> <C-g> :Coauthorship<CR>
+
 " This shows what you are typing as a command.
 set showcmd
 
