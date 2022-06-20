@@ -9,4 +9,3 @@ Host utviklerimage
   ProxyCommand "/usr/local/bin/sft" proxycommand  --via a01apvl00214.adeo.no --via e34apvl00602.devillo.no %r@%h
   UserKnownHostsFile /dev/null
   StrictHostKeyChecking no
-
