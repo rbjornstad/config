@@ -14,6 +14,7 @@ $path
 
 export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 export VAULT_ADDR=https://vault.adeo.no
+export GPG_TTY=$(tty)
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
@@ -120,12 +121,6 @@ testrig() {
 # Sources
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/frodesundby/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/frodesundby/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/frodesundby/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/frodesundby/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
-
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/vault vault
 
@@ -133,3 +128,9 @@ complete -o nospace -C /usr/local/bin/vault vault
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 alias stripx='sudo xattr -d -r com.apple.quarantine'
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/frodesundby/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/frodesundby/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/frodesundby/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/frodesundby/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
