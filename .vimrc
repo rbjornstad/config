@@ -1,4 +1,4 @@
-colorscheme delek
+colorscheme papercolor
 "
 set nocompatible
 " {{{ Settings
@@ -29,6 +29,7 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 set smarttab
+set background=dark
 
 set nospell
 

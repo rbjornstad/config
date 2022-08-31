@@ -16,6 +16,7 @@ export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 export VAULT_ADDR=https://vault.adeo.no
 export GPG_TTY=$(tty)
 
+
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
@@ -45,6 +46,8 @@ bindkey '^h' backward-delete-char
 bindkey -M vicmd 'v' edit-command-line
 
 # Aliases
+alias ndl="k logs -n nais-system -l app.kubernetes.io/instance=naisd"
+alias t="tenant_fzf"
 alias reset_onprem_kube_token="yq eval -i 'del(.users[] | select(.name == \"nais-user\") | .user.auth-provider.config.access-token)' ~/ws/kubeconfigs/config"
 alias unifi="ssh svadapi.ddns.net -p 4242 -L 8443:unifi:8443"
 alias uk="cd ~/ws/kubeconfigs; git pull origin master; cd -"
@@ -70,11 +73,12 @@ alias idea='open -na "IntelliJ IDEA" --args .'
 alias code='open -na "Visual Studio Code" --args -n `pwd`'
 alias myip='curl https://icanhazip.com/s 2>/dev/null'
 alias wl='watch kubectl logs $1 $2'
-alias github='open_github_for_current_folder'
+alias github='gh repo view --web'
 alias gcp='gcloud_set_project_fzf'
 alias glo='gcloud auth login --update-adc'
 alias xgcloud='gcloud_command_with_project_fzf'
 alias check='check_adhoc'
+alias stripx='sudo xattr -d -r com.apple.quarantine'
 
 # Functions
 KUBENS_BINARY=/usr/local/bin/kubens
@@ -100,9 +104,6 @@ kall () {
   done
 }
 
-open_github_for_current_folder () {
-    open $(git remote get-url --all origin)
-}
 
 check_adhoc () {
   k exec -it $1 -- wget -q -O- localhost:8080/adhoc | head -n3 | tail -n1 | jq -r .markdown
@@ -118,19 +119,26 @@ testrig() {
   curl localhost:8069/adhoc | jq -r .
 }
 
+tenant_fzf () {
+    nais device tenant $(echo -e "NAV\n$(gsutil ls gs://naisdevice-enroll-discovery | awk -F "/" '{print $4}')" | fzf -1 -q ${1:-""})
+    nais device connect
+}
+
+# GH
+#autoload -U compinit
+#compinit -i
+
 # Sources
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/vault vault
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-alias stripx='sudo xattr -d -r com.apple.quarantine'
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/frodesundby/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/frodesundby/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/frodesundby/opt/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/frodesundby/opt/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/frodesundby/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/frodesundby/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/frodesundby/opt/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/frodesundby/opt/google-cloud-sdk/completion.zsh.inc'; fi
+
+export PATH="$HOME/.poetry/bin:$PATH"
