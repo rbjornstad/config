@@ -1,8 +1,6 @@
 # Exports
 export path=(
-/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/bin
 /usr/local/bin
-/usr/local/opt/openjdk/bin
 /usr/local/Cellar
 /opt/node/bin
 ~/go/bin
@@ -11,6 +9,12 @@ export path=(
 ~/.krew/bin
 $path
 )
+
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+
+# CDPATH
+export CDPATH=.:..:~/ws
 
 export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 export VAULT_ADDR=https://vault.adeo.no
@@ -46,6 +50,7 @@ bindkey '^h' backward-delete-char
 bindkey -M vicmd 'v' edit-command-line
 
 # Aliases
+alias grw="gh run watch"
 alias ndl="k logs -n nais-system -l app.kubernetes.io/instance=naisd"
 alias t="tenant_fzf"
 alias reset_onprem_kube_token="yq eval -i 'del(.users[] | select(.name == \"nais-user\") | .user.auth-provider.config.access-token)' ~/ws/kubeconfigs/config"
@@ -69,8 +74,8 @@ alias gcsu='gcloud config set account $(gcloud auth list --format="value(account
 alias tmux='tmux -u'
 alias rg='rg --hidden'
 alias rgf='rg  --files | rg'
-alias idea='open -na "IntelliJ IDEA" --args .'
-alias code='open -na "Visual Studio Code" --args -n `pwd`'
+#alias idea='open -na "IntelliJ IDEA" --args .'
+alias idea='code .'
 alias myip='curl https://icanhazip.com/s 2>/dev/null'
 alias wl='watch kubectl logs $1 $2'
 alias github='gh repo view --web'
@@ -123,6 +128,10 @@ tenant_fzf () {
     nais device tenant $(echo -e "NAV\n$(gsutil ls gs://naisdevice-enroll-discovery | awk -F "/" '{print $4}')" | fzf -1 -q ${1:-""})
     nais device connect
 }
+
+for i in `seq 1 9`; do
+    alias p$i="awk '{ print \$$i; }'"
+done
 
 # GH
 #autoload -U compinit
