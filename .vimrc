@@ -1,4 +1,4 @@
-colorscheme papercolor
+"colorscheme papercolor
 "
 set nocompatible
 " {{{ Settings

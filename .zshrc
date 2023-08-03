@@ -14,27 +14,11 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 
 # CDPATH
-export CDPATH=.:..:~/ws
+export CDPATH=.:..:~/workspace
 
 export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 export VAULT_ADDR=https://vault.adeo.no
 export GPG_TTY=$(tty)
-
-
-# Path to your oh-my-zsh installation.
-export ZSH=~/.oh-my-zsh
-
-
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="avit"
-
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-export TERM=xterm-256color
-plugins=(git kubectl asdf )
-
-source $ZSH/oh-my-zsh.sh
 
 #VI mode
 EDITOR=/usr/bin/vim
@@ -67,8 +51,8 @@ alias sz="source ~/.zshrc"
 alias ez="vi ~/.zshrc"
 alias aura="ssh RA_S138206@a01apvl099.adeo.no"
 alias nav="/opt/Citrix/ICAClient/wfica -icaroot /opt/Citrix/ICAClient /mnt/w/ica-filer/NAV\ Skrivebord\ Adeo.ica"
-alias dev-dev="gcloud config set account frodesun@gmail.com && kc gke_nais-dev_europe-west1-b_nais-dev"
-alias nais-dev="gcloud config set account frode.sundby@nav.no && kc gke_nais-dev-206213_europe-west1_nais-dev"
+#alias dev-dev="gcloud config set account frodesun@gmail.com && kc gke_nais-dev_europe-west1-b_nais-dev"
+#alias nais-dev="gcloud config set account frode.sundby@nav.no && kc gke_nais-dev-206213_europe-west1_nais-dev"
 alias gilo='git log --all --decorate --oneline --graph'
 alias gcsu='gcloud config set account $(gcloud auth list --format="value(account)" | fzf)'
 alias tmux='tmux -u'
@@ -137,17 +121,24 @@ done
 #autoload -U compinit
 #compinit -i
 
+#kubectl autocompletion
+autoload -Uz compinit
+compinit
+source <(kubectl completion zsh)
+
 # Sources
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/vault vault
+#complete -o nospace -C /usr/local/bin/vault vault
 
 
+#export PATH="$HOME/.poetry/bin:$PATH"
+  
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/frodesundby/opt/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/frodesundby/opt/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/rogerbjornstad/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/rogerbjornstad/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/frodesundby/opt/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/frodesundby/opt/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/rogerbjornstad/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/rogerbjornstad/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
-export PATH="$HOME/.poetry/bin:$PATH"
+. /usr/local/opt/asdf/libexec/asdf.sh
