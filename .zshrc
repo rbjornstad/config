@@ -7,6 +7,9 @@ if [[ -x /opt/homebrew/bin/brew ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+# Remove duplicate PATH entries
+typeset -U path PATH
+
 # ============================================================
 # mise - version management
 # ============================================================
@@ -33,18 +36,10 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 # Google Cloud SDK
 # ============================================================
 
-# Manually installed SDK
+# Manually installed SDK.
+# Uses its bundled Python instead of mise Python.
 if [[ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]]; then
   source "$HOME/google-cloud-sdk/path.zsh.inc"
-fi
-
-# Prefer mise Python over macOS Python for gcloud
-if command -v mise &>/dev/null; then
-  mise_python="$(mise where python 2>/dev/null)"
-  if [[ -n "$mise_python" && -x "$mise_python/bin/python3" ]]; then
-    export CLOUDSDK_PYTHON="$mise_python/bin/python3"
-  fi
-  unset mise_python
 fi
 
 # ============================================================
